@@ -49,17 +49,19 @@ from langchain_google_genai import ChatGoogleGenerativeAI
 from pydantic.types import SecretStr
 
 def get_llm():
-    # Recommended: Use base_url for the most stable integration
+	  # copy https://github.com/langchain-ai/langchain-google/issues/783
     proxy_url = "https://gemini-proxy.yourdomain.com/v1beta"
     api_key = "YOUR_GEMINI_API_KEY"
 
     llm = ChatGoogleGenerativeAI(
-        model="gemini-1.5-flash",
-        api_key=SecretStr(api_key),
-        base_url=proxy_url
+        model="gemini-2.5-flash",
+        api_key=SecretStr(apiKey),
+        client_options={
+            "api_endpoint": proxy_url
+        },
+        transport="rest",
     )
     return llm
-
 ```
 
 ---
